@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hot dog not hot dog</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+     
+    <img src='<%= img%>' alt='Hot dog'> 
+    
+    <ul>
+      <li>Anger: <%=data.anger%></li>
+      <li>Contempt: <%=data.contempt%></li>
+      <li>Disgust: <%=data.disgust%></li>
+      <li>Fear: <%=data.fear%></li>
+      <li>Happiness: <%=data.happiness%></li>
+      <li>Neutral: <%=data.neutral%></li>
+      <li>Sadness: <%=data.sadness%></li>
+      <li>Surprise: <%=data.surprise%></li>
+    </ul>
+
+
+    <form action="/" enctype="multipart/form-data" method="post">
+      <input type="file" name="file-to-upload">
+      <input type="submit" value="Upload">
+    </form>  
+  </body>
+</html>
