@@ -56,32 +56,36 @@ app.get("/", (req, res) => {
 
 app.post("/", upload.single("file-to-upload"), async (req, res) => {
   try {
-    let hotDogCount = 0;
     // Upload image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
     const imageUrl = result.secure_url;
 
     axios({
-      method: 'post',
+      method: "post",
       url: faceEndpoint,
-      params : {
-          
-          returnFaceId: true,
-          returnFaceAttributes: 'age,gender,headPose,smile,facialHair,glasses,' +
-          'emotion,hair,makeup,occlusion,accessories,blur,exposure,noise'
+      params: {
+        returnFaceId: true,
+        returnFaceAttributes:
+          "age,gender,headPose,smile,facialHair,glasses," +
+          "emotion,hair,makeup,occlusion,accessories,blur,exposure,noise",
       },
       data: {
-          url: imageUrl,
+        url: imageUrl,
       },
-      headers: { 'Ocp-Apim-Subscription-Key': subscriptionKey }
-  }).then(function (response) {
-      console.log('Status text: ' + response.status)
-      console.log('Status text: ' + response.statusText)
-      console.log(response.data[0])
-      res.render("result.ejs", { data: response.data[0].faceAttributes.emotion, img: imageUrl });
-  }).catch(function (error) {
-      console.log(error)
-  });
+      headers: { "Ocp-Apim-Subscription-Key": subscriptionKey },
+    })
+      .then(function (response) {
+        console.log("Status text: " + response.status);
+        console.log("Status text: " + response.statusText);
+        console.log(response.data[0]);
+        res.render("result.ejs", {
+          data: response.data[0].faceAttributes.emotion,
+          img: imageUrl,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   } catch (err) {
     console.log(err);
   }
